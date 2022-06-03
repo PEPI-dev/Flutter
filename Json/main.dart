@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const JSONTest(title: 'Flutter Demo Home Page'),
+      home: const JSONTest(),
     );
   }
 }
@@ -36,15 +36,16 @@ class JSONTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String json ='{"name: "kdh","email": "kdhtod98@naver.com","created_time": 124124142}';
+    String json ='{"name: "kdh","email": "kdhtod98@naver.com"}';
 
     Map<String, dynamic>
     userMap = jsonDecode(json);
     var user = User.fromJson(userMap);
     var jsonData=user.toJson();
-    return const Scaffold(
-      body: Center(child: Text('name: ${user.name} \n email: ${user.email} \n created_time: ${user.created_time}',textScaleFactor: 2,))
+    return Scaffold(
+      body: Center(child: Text('name: ${user.name} \n email: ${user.email} \n',textScaleFactor: 2,))
     );
   }
 }
+
 
