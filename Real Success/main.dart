@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'Data.dart';
+import 'dart:async';
 
 
 void main() => runApp(MyApp());
@@ -35,6 +34,8 @@ class InfoPage extends StatefulWidget{
 class _InfoPage extends State<InfoPage>{
   final List<Welcome> _user = [];
 
+  late Timer timer;
+
   Future<List<Welcome>> fetchJson() async {
     var reponse = await http.get(Uri.parse('http://cloud.park-cloud.co19.kr/project/view2.php'));
 
@@ -49,6 +50,10 @@ class _InfoPage extends State<InfoPage>{
     }
     return ulist;
   }
+
+
+
+
   @override
   void initState(){
     fetchJson().then((value){
@@ -57,6 +62,11 @@ class _InfoPage extends State<InfoPage>{
       });
     });
     super.initState();
+  }
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -68,16 +78,15 @@ class _InfoPage extends State<InfoPage>{
         return Card(
         child: Column(
         children: [
-          Text(_user[index].time.toString()),
-          Text(_user[index].temp.toString()),
-          Text(_user[index].hum.toString()),
-          Text(_user[index].pm25.toString()),
-          ],
+          Text('온도 : ' + _user[index].temp.toString() + ' °C'),
+          Text('습도 : '+ _user[index].hum.toString() + '%'),
+          Text('먼지농도 : '+_user[index].pm25.toString() + '%'),
+        ],
         ),
         );
-    },
+       },
         itemCount: _user.length,
-    ),
+     ),
     );
   }
 }
