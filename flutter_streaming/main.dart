@@ -23,21 +23,27 @@ class MyHomePage extends HookWidget {
     final isRunning = useState(true);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Demo Home Page'),
+        backgroundColor: Color(0xFF39D265),
+        automaticallyImplyLeading: true,
+        title: Text('Crane'),
+        actions: [],
+        centerTitle: true,
+        elevation: 4,
       ),
+
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Center(
+             child : Center(
               child: Mjpeg(
                 isLive: isRunning.value,
                 error: (context, error, stack) {
                   print(error);
                   print(stack);
-                  return Text(error.toString(), style: TextStyle(color: Colors.red));
+                  return Text(error.toString(),
+                      style: TextStyle(color: Colors.red));
                 },
                 stream: 'http://10.10.141.250:8080/?action=stream',
-
               ),
             ),
           ),
@@ -46,17 +52,9 @@ class MyHomePage extends HookWidget {
               RaisedButton(
                 onPressed: () {
                   isRunning.value = !isRunning.value;
+
                 },
-                child: Text('Toggle'),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        appBar: AppBar(),
-                      )));
-                },
-                child: Text('Push new route'),
+                child: Text('Cam'),
               ),
             ],
           ),
